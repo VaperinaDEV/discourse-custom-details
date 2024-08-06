@@ -6,9 +6,8 @@ export default {
 
   initialize() {
     withPluginApi("0.8.7", (api) => {
-
       api.decorateCookedElement(
-        element => {
+        (element) => {
           const cookedDetails = element.querySelectorAll("details");
 
           if (!cookedDetails.length) {
@@ -18,33 +17,34 @@ export default {
           cookedDetails.forEach((details) => {
             details.setAttribute("open", "");
 
-            const detailsShowMoreDiv = document.createElement("div");
-            detailsShowMoreDiv.classList.add("details-footer");
-            details.appendChild(detailsShowMoreDiv);
+            const detailsFooter = document.createElement("div");
+            detailsFooter.classList.add("details-footer");
+            details.appendChild(detailsFooter);
 
             const detailsShowMoreSpan = document.createElement("span");
             detailsShowMoreSpan.classList.add("details-show-more");
-            detailsShowMoreDiv.appendChild(detailsShowMoreSpan);
+            detailsFooter.appendChild(detailsShowMoreSpan);
 
-            let showMoreText = `<span>${I18n.t(themePrefix('expand_details'))}</span>`;
-            let showMoreIcon = iconHTML("angle-down");
-            detailsShowMoreSpan.innerHTML = showMoreText;
-            detailsShowMoreSpan.innerHTML += showMoreIcon;
-            
+            const createButtonContent = (textKey, iconName) => {
+              const textSpan = document.createElement("span");
+              textSpan.textContent = I18n.t(themePrefix(textKey));
+              detailsShowMoreSpan.appendChild(textSpan);
+
+              const iconSpan = document.createElement("span");
+              iconSpan.innerHTML = iconHTML(iconName);
+              detailsShowMoreSpan.appendChild(iconSpan);
+            };
+
+            createButtonContent('expand_details', 'angle-down');
+
             detailsShowMoreSpan.addEventListener("click", () => {
               details.toggleAttribute("expanded");
+              detailsShowMoreSpan.innerHTML = ""; // Clear previous content
 
-              if (details.hasAttribute("expanded")) {
-                let showLessText = `<span>${I18n.t(themePrefix('collapse_details'))}</span>`;
-                let showLessIcon = iconHTML("angle-up");
-                detailsShowMoreSpan.innerHTML = showLessText;
-                detailsShowMoreSpan.innerHTML += showLessIcon;
-              } else {
-                let showMoreText = `<span>${I18n.t(themePrefix('expand_details'))}</span>`;
-                let showMoreIcon = iconHTML("angle-down");
-                detailsShowMoreSpan.innerHTML = showMoreText;
-                detailsShowMoreSpan.innerHTML += showMoreIcon;
-              }
+              createButtonContent(
+                details.hasAttribute("expanded") ? 'collapse_details' : 'expand_details',
+                details.hasAttribute("expanded") ? 'angle-up' : 'angle-down'
+              );
             });
           });
         },
