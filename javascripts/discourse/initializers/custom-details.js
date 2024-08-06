@@ -21,25 +21,25 @@ export default {
             detailsFooter.classList.add("details-footer");
             details.appendChild(detailsFooter);
 
-            const detailsShowMoreSpan = document.createElement("span");
-            detailsShowMoreSpan.classList.add("details-show-more");
-            detailsFooter.appendChild(detailsShowMoreSpan);
+            const detailsToggleButton = document.createElement("button");
+            detailsToggleButton.classList.add("btn", "btn-icon-text", "details-toggle");
+            detailsFooter.appendChild(detailsToggleButton);
 
             const createButtonContent = (textKey, iconName) => {
               const textSpan = document.createElement("span");
               textSpan.textContent = I18n.t(themePrefix(textKey));
-              detailsShowMoreSpan.appendChild(textSpan);
+              detailsToggleButton.appendChild(textSpan);
 
               const iconSpan = document.createElement("span");
               iconSpan.innerHTML = iconHTML(iconName);
-              detailsShowMoreSpan.appendChild(iconSpan);
+              detailsToggleButton.appendChild(iconSpan);
             };
 
             createButtonContent('expand_details', 'angle-down');
 
-            detailsShowMoreSpan.addEventListener("click", () => {
+            detailsToggleButton.addEventListener("click", () => {
               details.toggleAttribute("expanded");
-              detailsShowMoreSpan.innerHTML = ""; // Clear previous content
+              detailsToggleButton.innerHTML = ""; // Clear previous content
 
               createButtonContent(
                 details.hasAttribute("expanded") ? 'collapse_details' : 'expand_details',
