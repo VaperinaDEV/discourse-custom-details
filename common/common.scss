@@ -43,13 +43,16 @@
             transition: all 0.15s;
             background: var(--primary);
             color: var(--secondary);
+
+            .d-icon {
+              color: var(--secondary);
+            }
           }
 
-          span {
-            .d-icon {
-              margin-left: 0.45em;
-              margin-right: 0;
-            }
+          .d-icon {
+            margin-left: 0.45em;
+            margin-right: 0;
+            color: var(--primary);
           }
         }
       }
