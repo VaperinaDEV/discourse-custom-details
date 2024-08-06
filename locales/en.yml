@@ -1,0 +1,5 @@
+en:
+  theme_metadata:
+    description: "Custom Details"
+  expand_details: "Expand"
+  collapse_details: "Collapse"

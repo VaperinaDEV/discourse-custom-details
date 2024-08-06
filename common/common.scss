@@ -1,0 +1,68 @@
+.topic-body .cooked,
+.d-editor-preview {
+  details {
+    background-color: var(--primary-very-low);
+    padding: 0.25rem 0.75rem 3rem;
+    margin-bottom: 0.5rem;
+    max-height: 140px;
+    overflow: hidden;
+
+    &[open],
+    &.open {      
+      > summary {
+        position: relative;
+        font-size: var(--font-up-2);
+        font-weight: 600;
+        z-index: 1;
+        pointer-events: none;
+        &:before {
+          display: none;
+        }
+      }
+
+      .details-footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 6rem;
+        background: var(--primary-very-low);
+        box-shadow: 0px 0px 70px 30px var(--primary-very-low);
+
+        .details-show-more {
+          position: absolute;
+          left: 50%;
+          bottom: 2em;
+          transform: translateX(-50%);
+          z-index: 1;
+          border-radius: 2em;
+          color: var(--primary);
+          background: transparent;
+          border: 2px solid var(--primary);
+          padding: 0.25em 0.75em;
+          cursor: pointer;
+
+          &:focus,
+          &:hover {
+            transition: all 0.15s;
+            background: var(--primary);
+            color: var(--secondary);
+          }
+
+          span {
+            margin-right: 0.35em;
+          }
+        }
+      }
+  
+      &[expanded] {
+        padding: 0.25rem 0.75rem 6rem;
+        max-height: 100%;
+        overflow: unset;
+        .details-footer {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
